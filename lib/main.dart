@@ -13,12 +13,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'dice'),
     );
   }
 }
 
-// 1. StatefulWidgetを継承したクラスを作る。
 class MyHomePage extends StatefulWidget {
   final String title;
 
@@ -26,23 +25,36 @@ class MyHomePage extends StatefulWidget {
     Key? key,
     required this.title,
   }) : super(key: key);
-  // createState()　で"State"（Stateを継承したクラス）を返す
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-//  2.Stateを継承したクラスを作る。
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int _1D100 = 0;
+  int _1D10 = 0;
+  int _1D8 = 0;
 
   void _roll1D100() {
     setState(() {
       var rand = math.Random();
-      _counter = rand.nextInt(100) + 1;
+      _1D100 = rand.nextInt(100) + 1;
     });
   }
 
-  //　状態を使いつつ組んだWidgetを返す(build関数)
+  void _roll1D10() {
+    setState(() {
+      var rand = math.Random();
+      _1D10 = rand.nextInt(10) + 1;
+    });
+  }
+
+  void _roll1D8() {
+    setState(() {
+      var rand = math.Random();
+      _1D8 = rand.nextInt(8) + 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,90 +62,150 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              children: [
-                Card(
-                    elevation: 10,
-                    color: Colors.lightGreen,
-                    margin: const EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Padding(padding: EdgeInsets.only(top: 23, right: 18),
-                          child: Text(
-                            "1D100",
-                            style: TextStyle(
-                              fontSize: 24,
-                            ),
-                          ),
-                        ),
-                        Padding(padding: const EdgeInsets.only(top: 18, right: 18),
-                          child: Text(
-                            '$_counter',
-                            style: Theme.of(context).textTheme.headline4,
-                          ),
-                        ),
-                        Padding(padding: const EdgeInsets.only(top: 23, right: 18),
-                          child: TextButton(
-                              onPressed: _roll1D100, child: const Text("roll")
-                          ),),
-                      ],
-                    )
+        child: Container(
+          margin: EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Card(
+                color: Color(0xfff4efee),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)
                 ),
-                Card(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Padding(padding: EdgeInsets.only(top: 23, right: 18),
-                          child: Text(
-                            "1D100",
+                child: Row(
+                  children: [
+                    const Padding(
+                      padding:  EdgeInsets.only(top: 40, bottom: 40, left: 40, right: 20),
+                      child: Text(
+                        "1D100",
+                        style: TextStyle(
+                          color: Color(0xff6f5d61),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 40, bottom: 40, left: 20, right: 20),
+                      child: Text(
+                        '$_1D100',
+                        style: const TextStyle(
+                          color: Color(0xff6f5d61),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 40, bottom: 40, left: 20, right: 35),
+                      child: TextButton(
+                          onPressed: _roll1D100,
+                          child: const Text(
+                            "roll",
                             style: TextStyle(
-                              fontSize: 24,
+                              color: Color(0xff6f5d61),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
                             ),
-                          ),
-                        ),
-                        Padding(padding: const EdgeInsets.only(top: 18, right: 18),
-                          child: Text(
-                            '$_counter',
-                            style: Theme.of(context).textTheme.headline4,
-                          ),
-                        ),
-                        Padding(padding: const EdgeInsets.only(top: 23, right: 18),
-                          child: TextButton(
-                              onPressed: _roll1D100, child: const Text("roll")
-                          ),),
-                      ],
-                    )
+                          )
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            // Row(
-            //   children: [
-            //     const Padding(padding: EdgeInsets.only(top: 23, right: 18),
-            //       child: Text(
-            //           "1D100",
-            //         style: TextStyle(
-            //           fontSize: 24,
-            //         ),
-            //       ),
-            //     ),
-            //     Padding(padding: const EdgeInsets.only(top: 18, right: 18),
-            //       child: Text(
-            //         '$_counter',
-            //         style: Theme.of(context).textTheme.headline4,
-            //       ),
-            //     ),
-            //     Padding(padding: const EdgeInsets.only(top: 23, right: 18),
-            //       child: TextButton(
-            //           onPressed: _roll1D100, child: const Text("roll")
-            //       ),
-            //     ),
-            //   ],
-            // )
-          ],
+              ),
+              Card(
+                color: Color(0xfff4efee),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)
+                ),
+                child: Row(
+                  children: [
+                    const Padding(
+                      padding:  EdgeInsets.only(top: 40, bottom: 40, left: 40, right: 20),
+                      child: Text(
+                        "1D10",
+                        style: TextStyle(
+                          color: Color(0xff6f5d61),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 40, bottom: 40, left: 20, right: 20),
+                      child: Text(
+                        '$_1D10',
+                        style: const TextStyle(
+                          color: Color(0xff6f5d61),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 40, bottom: 40, left: 20, right: 40),
+                      child: TextButton(
+                          onPressed: _roll1D10,
+                          child: const Text(
+                            "roll",
+                            style: TextStyle(
+                              color: Color(0xff6f5d61),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                            ),
+                          )
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Card(
+                color: Color(0xfff4efee),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)
+                ),
+                child: Row(
+                  children: [
+                    const Padding(
+                      padding:  EdgeInsets.only(top: 40, bottom: 40, left: 40, right: 20),
+                      child: Text(
+                        "1D8",
+                        style: TextStyle(
+                          color: Color(0xff6f5d61),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 40, bottom: 40, left: 20, right: 20),
+                      child: Text(
+                        '$_1D8',
+                        style: const TextStyle(
+                          color: Color(0xff6f5d61),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 40, bottom: 40, left: 20, right: 40),
+                      child: TextButton(
+                          onPressed: _roll1D8,
+                          child: const Text(
+                            "roll",
+                            style: TextStyle(
+                              color: Color(0xff6f5d61),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                            ),
+                          )
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
